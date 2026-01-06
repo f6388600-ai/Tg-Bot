@@ -939,20 +939,24 @@ async def start_diamond_uid(update: Update, ctx: ContextTypes.DEFAULT_TYPE, pnam
 async def start_diamond_confirm(update: Update, ctx: ContextTypes.DEFAULT_TYPE, uid_txt: str) -> None:
     uid = update.effective_user.id
     st, data = get_state(ctx, uid)
-    if st != "DM_WAIT_UID":
-        return
-    ffuid = uid_txt.strip()
-    if not re.fullmatch(r"[0-9]{10,12}", ffuid):
-        await update.message.reply_text("❌ ভুল UID
-১০–১২ digit নাম্বার দিন", reply_markup=back_kb())
-        return
-    pkey = data.get("pkey","")
-    p = get_product(pkey)
-    if not p:
-        clear_state(ctx, uid)
-        await update.message.reply_text(F("Package not found."), reply_markup=home_kb(uid))
-        return
-    stock = get_dm_stock(pkey)
+if st != "DM_WAIT_UID":
+    return
+
+ffuid = uid_txt.strip()
+if not re.fullmatch(r"[0-9]{10,12}", ffuid):
+    await update.message.reply_text(
+        "❌ ভুল UID\n১০–১২ digit নাম্বার দিন",
+        reply_markup=back_kb()
+    )
+    return
+
+pkey = data.get("pkey", "")
+p = get_product(pkey)
+if not p:
+    clear_state(ctx, uid)
+    await update.message.reply_text(F("Package not found."), reply_markup=home_kb(uid))
+    return
+  stock = get_dm_stock(pkey)
     msg = (
         f"⚠️ {F('CONFIRM ORDER')}\n\n"
         f"{F('Package')}: {F(p['name'])}\n"
@@ -970,7 +974,7 @@ async def do_diamond_place(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> No
     if st != "DM_CONFIRM":
         return
     pkey = data.get("pkey","")
-    ffuid = data.get("ffuid","")
+    ffuid = data.get("ffuid",""p
     p = get_product(pkey)
     if not p:
         clear_state(ctx, uid)
@@ -1018,7 +1022,7 @@ async def do_diamond_place(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> No
     await maybe_referral_credit(ctx, uid, price)
 
     user_msg = (
-        f"⏳ {F('ORDER PLACED')}\n\n"
+        f"⏳ {F('ORDER PLACED')}\n\nf
         f"{F('Package')}: {F(p['name'])}\n"
         f"{F('UID')}: {mono(ffuid)}\n"
         f"{F('Order ID')}: {mono(order_id)}\n"
@@ -1037,7 +1041,7 @@ async def do_diamond_place(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> No
         f"👤 {F('User')}: {mono(str(uid))}\n"
         f"📦 {F('Package')}: {F(p['name'])}\n"
         f"🆔 {F('UID')}: {mono(ffuid)}\n"
-        f"💰 {F('Price')}: {F('Tk')} {F(str(price))}\n"
+        f"💰 {F('Price')}: {F('Tk')} {F(str(price))}\nf
         f"🆔 {F('Order ID')}: {mono(order_id)}\n"
         f"⏰ {F('Time')}: {F(fmt_time(ts))}"
     )
