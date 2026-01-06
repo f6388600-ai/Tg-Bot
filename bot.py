@@ -636,9 +636,24 @@ async def show_diamond_list(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> N
     for p in prods:
         stock = get_dm_stock(p["key"])
         if stock <= 0:
-            lines.append(f"• <b>{F(p[\'name\'])}</b> → {F('Tk')} {F(str(p['price']))} ({F('Stock')}: {F('0')})")
+            lines.append(
+    "• <b>{}</b> → {} {}  ({}: {} | {})".format(
+        F(p["name"]),
+        F("Tk"),
+        F(str(p["price"])),
+        F("Stock"),
+        F("0"),
+        F("Out Of Stock"),
+    )
         else:
-            lines.append(f"• <b>{F(p[\'name\'])}</b> → {F('Tk')} {F(str(p['price']))} ({F('Stock')}: {F(str(stock))})")
+            lines.append(
+    "• <b>{}</b> → {} {}  ({}: {})".format(
+        F(p["name"]),
+        F("Tk"),
+        F(str(p["price"])),
+        F("Stock"),
+        F(str(stock)),
+    )
     lines.append("━━━━━━━━━━━━━━━━━━")
     lines.append(F("Select a package from buttons below."))
     rows = []
