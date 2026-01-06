@@ -217,12 +217,12 @@ async def send_join_gate(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("📢 𝐉𝐨𝐢𝐧 𝐂𝐡𝐚𝐧𝐧𝐞𝐥", url=f"https://t.me/{FORCE_JOIN_CHANNEL.lstrip('@')}")]
     ])
     await update.message.reply_text(
-        f"{S['WELCOME']}
+    f"""{S['WELCOME']}
 
-➡️ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐉𝐨𝐢𝐧: {FORCE_JOIN_CHANNEL}
+➡️ Please Join: {FORCE_JOIN_CHANNEL}
 
-✅ 𝐉𝐨𝐢𝐧 𝐤𝐨𝐫𝐞 𝐧𝐢𝐜𝐡𝐞 𝐕𝐞𝐫𝐢𝐟𝐲 𝐜𝐚𝐩 𝐤𝐨𝐫𝐮𝐧।",
-        reply_markup=kb,
+✅ Join kore niche Verify cap korun!""",
+    reply_markup=kb,
     )
 
 async def on_verify_join(update: Update, context: ContextTypes.DEFAULT_TYPE):
