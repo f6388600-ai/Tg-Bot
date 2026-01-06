@@ -588,10 +588,32 @@ async def show_unipin_list(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> No
     lines = [f"<b>{F('UNIPIN PACKAGES')}</b>", "━━━━━━━━━━━━━━━━━━"]
     for p in prods:
         stock = get_uc_stock(p["key"])
-        if stock <= 0:
-            lines.append(f"• <b>{F(\'PRODUCT\')}</b>: <b>{F(p[\'name\'])}</b>\n  {F('PRICE')}: {F('Tk')} {F(str(p['price']))}\n  {F('STOCK')}: {F('0')} ({F('Out Of Stock')})")
-        else:
-            lines.append(f"• <b>{F(\'PRODUCT\')}</b>: <b>{F(p[\'name\'])}</b>\n  {F('PRICE')}: {F('Tk')} {F(str(p['price']))}\n  {F('STOCK')}: {F(str(stock))}")
+
+if stock <= 0:
+    lines.append(
+        "• <b>{}</b>: <b>{}</b>\n  {}: {} {}\n  {}: {} ({})".format(
+            F("PRODUCT"),
+            F(p["name"]),
+            F("PRICE"),
+            F("Tk"),
+            F(str(p["price"])),
+            F("STOCK"),
+            F("0"),
+            F("Out Of Stock"),
+        )
+    )
+else:
+    lines.append(
+        "• <b>{}</b>: <b>{}</b>\n  {}: {} {}\n  {}: {}".format(
+            F("PRODUCT"),
+            F(p["name"]),
+            F("PRICE"),
+            F("Tk"),
+            F(str(p["price"])),
+            F("STOCK"),
+            F(str(stock)),
+        )
+    )
     lines.append("━━━━━━━━━━━━━━━━━━")
     lines.append(F("Select a package from buttons below."))
     # buttons
